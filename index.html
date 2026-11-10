@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Обчислювальне мислення: від задачі до алгоритму</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=gaUYdJ9Aqce4et4QSoKUsy4XCcy6qOl6B1azqMmX0stpD-v-5fRGL1WWUvyIj7njVnpOT7LLBHORDfqju9onktFXJYSqJsgANwaJRdzS_OeFpHdOTFIFUOySqQh7F9QpJa8ucD8UwFbAlGdeJCMzrfGasQAaY2rRSCT6tcHLxN0PuweHzHLBiHdw9B_yHjHgExObS3zVG0_uBU7nSINEbVaMhaiDiiurdtokFlrNUjdpaBgRvdSqc7GzA5KQPF1Tqzd046ZNNu8EKnk0erVaJfhfY8tjuLfLe_69GHpWV46IDMwobdjbmCJtNQz9h8W-RbY5XLh5cIJ3plmOEWwmx-Pzo_QJJ_zrZxqDI0O-doc" charset="UTF-8"></script><style>
+:root{--ink:#172033;--muted:#5d6880;--blue:#2457a7;--pale:#edf4ff;--teal:#087f78;--gold:#a85b08;--line:#dce3ee;--bg:#f4f7fb}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+/* Обмеження виділення та копіювання тексту сторінки */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select{-webkit-user-select:text;user-select:text}
+
+header{background:linear-gradient(125deg,#142b50,#2767b2);color:white;padding:56px 22px 48px}
+.hero{max-width:1050px;margin:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.78rem;font-weight:700;opacity:.85}
+h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin:.5rem 0 1rem}
+header p{font-size:1.15rem;max-width:760px;color:#e4edff}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{border:1px solid #ffffff66;border-radius:999px;padding:5px 12px;font-size:.88rem}
+nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5;overflow:auto}
+nav .inner{max-width:1050px;margin:auto;display:flex;gap:6px;padding:9px 16px;white-space:nowrap}
+nav a{color:var(--blue);text-decoration:none;padding:7px 10px;border-radius:8px;font-size:.9rem}
+nav a:hover{background:var(--pale)}
+main{max-width:1050px;margin:28px auto;padding:0 18px 60px}
+section{background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,34px);margin:20px 0;box-shadow:0 5px 20px #17203308}
+h2{font-size:1.65rem;line-height:1.25;margin:0 0 14px}
+h3{font-size:1.12rem;margin:22px 0 8px}
+.lead{font-size:1.08rem;color:var(--muted)}
+.callout{background:var(--pale);border-left:4px solid var(--blue);padding:14px 17px;border-radius:8px;margin:16px 0}
+.callout.teal{background:#eaf8f5;border-color:var(--teal)}
+.callout.gold{background:#fff5e8;border-color:#d58a28}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.step{padding:16px;border:1px solid var(--line);border-radius:12px;background:#fbfcff}
+.step b{display:block;color:var(--blue);margin-bottom:5px}
+.num{display:inline-grid;place-items:center;background:var(--blue);color:#fff;border-radius:50%;width:28px;height:28px;margin-right:7px;font-size:.9rem}
+table{width:100%;border-collapse:collapse;margin:14px 0}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:#f2f5fa}
+code,pre{font-family:Consolas,"Courier New",monospace}
+code{background:#eef2f8;padding:2px 5px;border-radius:5px}
+pre{background:#111d31;color:#edf4ff;padding:20px;border-radius:12px;overflow:auto;line-height:1.55;font-size:.94rem}
+pre code{background:transparent;color:inherit;padding:0;border-radius:0}
+.flow{display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px auto;max-width:580px}
+.flow div{width:100%;padding:13px 16px;border-radius:10px;text-align:center;background:#edf4ff;border:1px solid #cbdcf6}
+.flow .arrow{background:none;border:0;padding:0;color:var(--muted);font-size:1.4rem;line-height:1}
+.flow .end{background:#eaf8f5;border-color:#b8e2d8}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0}
+.stat{background:#f5f8fc;border:1px solid var(--line);padding:15px;border-radius:12px}
+.stat span{display:block;color:var(--muted);font-size:.88rem}
+.stat strong{font-size:1.7rem;color:var(--blue)}
+button{border:0;border-radius:9px;padding:10px 16px;background:var(--blue);color:white;font-weight:650;cursor:pointer;font-size:.95rem}
+button:hover{filter:brightness(1.08)}
+button.secondary{background:#e9eef6;color:var(--ink)}
+input[type=number]{padding:9px;border:1px solid #bac6d8;border-radius:8px;width:90px;font:inherit}
+.quiz-q{padding:15px 0;border-bottom:1px solid var(--line)}
+.quiz-q:last-child{border:0}
+label{display:block;margin:7px 0;cursor:pointer}
+.feedback{font-weight:650;margin-top:8px}
+footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:600px){header{padding:40px 18px}nav .inner{padding:7px}nav a{font-size:.82rem}section{border-radius:13px}}
+@media print{body{background:white}nav,button{display:none!important}section{box-shadow:none;break-inside:avoid}header{background:#2457a7!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hero">
+  <div class="eyebrow">Інформатика · 10 клас</div>
+  <h1>Обчислювальне мислення:<br>від задачі до алгоритму</h1>
+  <p>Навчимося аналізувати умову, розкладати складну задачу на частини, знаходити закономірності, виділяти головне та створювати алгоритм мовою Python.</p>
+  <div class="meta"><span class="pill">Тривалість: 45 хв</span><span class="pill">Практична робота</span><span class="pill">Python</span></div>
+ </div>
+</header>
+<nav><div class="inner">
+ <a href="#goal">Мета</a><a href="#problem">Задача</a><a href="#decomp">Декомпозиція</a><a href="#patterns">Закономірності</a><a href="#abstract">Абстрагування</a><a href="#algorithm">Алгоритм</a><a href="#code">Python</a><a href="#practice">Практика</a><a href="#quiz">Тест</a>
+</div></nav>
+<main>
+<section id="goal">
+ <h2>1. Мета уроку</h2>
+ <p class="lead">Зрозуміти, що розв'язування задачі починається не з написання коду, а з продуманого аналізу умови.</p>
+ <div class="steps">
+  <div class="step"><b>Декомпозиція</b>Розбивати складну задачу на прості підзадачі.</div>
+  <div class="step"><b>Пошук закономірностей</b>Помічати повторювані дії та спільні властивості.</div>
+  <div class="step"><b>Абстрагування</b>Відкидати другорядні дані й залишати важливе.</div>
+  <div class="step"><b>Алгоритмізація</b>Упорядковувати кроки розв'язання.</div>
+ </div>
+ <div class="callout"><b>Ключове запитання:</b> як перетворити велику задачу на зрозумілу послідовність простих дій?</div>
+</section>
+
+<section id="problem">
+ <h2>2. Постановка задачі</h2>
+ <h3>Аналіз результатів контрольної роботи</h3>
+ <p>У класі навчається 10 учнів. За результатами контрольної роботи вони отримали такі бали:</p>
+ <p><code>8, 10, 7, 12, 6, 9, 11, 5, 10, 8</code></p>
+ <p>Потрібно створити програму, яка визначить:</p>
+ <ol>
+  <li>середній бал класу;</li>
+  <li>найвищий і найнижчий результати;</li>
+  <li>кількість учнів з оцінками 10–12;</li>
+  <li>кількість учнів з оцінками нижче 7;</li>
+  <li>відсоток учнів, які отримали 10–12 балів.</li>
+ </ol>
+ <div class="callout gold"><b>Подумайте:</b> чи варто одразу писати програму? Які дані потрібні? Які обчислення доведеться виконати?</div>
+</section>
+
+<section id="decomp">
+ <h2>3. Декомпозиція — розбиття на підзадачі</h2>
+ <p>Декомпозиція — це поділ складної задачі на менші частини, кожну з яких легше розв'язати окремо.</p>
+ <div class="flow">
+  <div><b>Головна задача</b><br>Проаналізувати результати контрольної роботи</div><div class="arrow">↓</div>
+  <div>1. Отримати та зберегти оцінки</div><div class="arrow">↓</div>
+  <div>2. Обчислити суму й середній бал</div><div class="arrow">↓</div>
+  <div>3. Знайти мінімальну та максимальну оцінки</div><div class="arrow">↓</div>
+  <div>4. Порахувати високі та низькі результати</div><div class="arrow">↓</div>
+  <div class="end">5. Обчислити відсоток і вивести звіт</div>
+ </div>
+ <div class="callout teal"><b>Висновок:</b> замість однієї великої проблеми маємо кілька зрозумілих підзадач.</div>
+</section>
+
+<section id="patterns">
+ <h2>4. Виявлення закономірностей</h2>
+ <p>Тепер шукаємо спільне в діях, які потрібно виконати над кожною оцінкою.</p>
+ <table>
+  <thead><tr><th>Що потрібно знайти?</th><th>Яку дію виконуємо?</th></tr></thead>
+  <tbody>
+   <tr><td>Суму оцінок</td><td>Додаємо кожну оцінку до змінної <code>total</code>.</td></tr>
+   <tr><td>Мінімум і максимум</td><td>Порівнюємо поточну оцінку з найменшою та найбільшою.</td></tr>
+   <tr><td>Кількість високих балів</td><td>Перевіряємо умову <code>mark &gt;= 10</code> і збільшуємо лічильник.</td></tr>
+   <tr><td>Кількість низьких балів</td><td>Перевіряємо умову <code>mark &lt; 7</code> і збільшуємо лічильник.</td></tr>
+  </tbody>
+ </table>
+ <div class="callout"><b>Головна закономірність:</b> кожну оцінку потрібно опрацювати однаковим набором дій. Отже, доцільно використати цикл <code>for</code>. За один прохід циклу можна виконувати одразу кілька обчислень.</div>
+</section>
+
+<section id="abstract">
+ <h2>5. Виділення головного — абстрагування</h2>
+ <p>Абстрагування — це зосередження на важливих для розв'язання даних і відкидання другорядної інформації.</p>
+ <table>
+  <thead><tr><th>Інформація</th><th>Чи потрібна?</th><th>Пояснення</th></tr></thead>
+  <tbody>
+   <tr><td>Кількість учнів</td><td>Так</td><td>Потрібна для середнього бала та відсотків.</td></tr>
+   <tr><td>Оцінки учнів</td><td>Так</td><td>Основні вхідні дані.</td></tr>
+   <tr><td>Прізвища учнів</td><td>Ні</td><td>Не впливають на обчислення.</td></tr>
+   <tr><td>Дата контрольної</td><td>Ні</td><td>Не потрібна для поставлених обчислень.</td></tr>
+   <tr><td>Межі високого рівня</td><td>Так</td><td>Визначають умову підрахунку.</td></tr>
+  </tbody>
+ </table>
+ <p>Отже, достатньо працювати з такими змінними:</p>
+ <ul><li><code>n</code> — кількість учнів;</li><li><code>marks</code> — список оцінок;</li><li><code>total</code> — сума оцінок;</li><li><code>best</code>, <code>worst</code> — найбільша й найменша оцінки;</li><li><code>high</code>, <code>low</code> — лічильники високих і низьких результатів.</li></ul>
+</section>
+
+<section id="algorithm">
+ <h2>6. Побудова алгоритму</h2>
+ <ol>
+  <li>Почати виконання.</li>
+  <li>Задати кількість учнів і список оцінок.</li>
+  <li>Ініціалізувати суму та лічильники нулями.</li>
+  <li>Початкові значення мінімуму й максимуму взяти з першої оцінки.</li>
+  <li>Для кожної оцінки зі списку:
+   <ul><li>додати її до суми;</li><li>оновити максимум і мінімум за потреби;</li><li>перевірити, чи оцінка не менша за 10;</li><li>перевірити, чи оцінка менша за 7.</li></ul>
+  </li>
+  <li>Обчислити середній бал і відсоток високих результатів.</li>
+  <li>Вивести результати.</li>
+ </ol>
+ <div class="callout teal"><b>Зверніть увагу:</b> цикл потрібен для повторення дій над усіма оцінками, а розгалуження <code>if</code> — для перевірки умов.</div>
+</section>
+
+<section id="code">
+ <h2>7. Реалізація алгоритму мовою Python</h2>
+ <p>У цьому прикладі оцінки вже записані у список. Пізніше можна змінити програму так, щоб користувач вводив їх самостійно.</p>
+<pre><code>n = 10
+
+marks = [8, 10, 7, 12, 6,
+         9, 11, 5, 10, 8]
+
+total = 0
+best = marks[0]
+worst = marks[0]
+
+high = 0
+low = 0
+
+for mark in marks:
+    total += mark
+
+    if mark &gt; best:
+        best = mark
+
+    if mark &lt; worst:
+        worst = mark
+
+    if mark &gt;= 10:
+        high += 1
+
+    if mark &lt; 7:
+        low += 1
+
+average = total / n
+percent = high / n * 100
+
+print("Середній бал:", average)
+print("Найвища оцінка:", best)
+print("Найнижча оцінка:", worst)
+print("Високий рівень:", high)
+print("Низькі результати:", low)
+print("Високий рівень, %:", percent)</code></pre>
+ <h3>Результат виконання</h3>
+ <div class="stats">
+  <div class="stat"><span>Середній бал</span><strong>8,6</strong></div>
+  <div class="stat"><span>Найвища оцінка</span><strong>12</strong></div>
+  <div class="stat"><span>Найнижча оцінка</span><strong>5</strong></div>
+  <div class="stat"><span>Високий рівень</span><strong>4 учні</strong></div>
+  <div class="stat"><span>Нижче 7 балів</span><strong>2 учні</strong></div>
+  <div class="stat"><span>Високий рівень</span><strong>40%</strong></div>
+ </div>
+ <p class="lead">Перевірка: сума всіх оцінок дорівнює 86, тому середній бал — 86 / 10 = 8,6.</p>
+</section>
+
+<section id="practice">
+ <h2>8. Практичне завдання для учнів</h2>
+ <h3>Аналіз температури повітря</h3>
+ <p>Метеостанція протягом 7 днів фіксувала середньодобову температуру:</p>
+ <p><code>12, 15, 18, 14, 20, 22, 16</code></p>
+ <p>Створіть програму, яка визначає:</p>
+ <ol><li>середню температуру за тиждень;</li><li>найвищу та найнижчу температуру;</li><li>кількість днів із температурою вище 15 °C;</li><li>кількість днів із температурою нижче 15 °C;</li><li>кількість днів із температурою рівно 15 °C.</li></ol>
+ <div class="callout gold"><b>Підказка:</b> використайте список, цикл <code>for</code>, умовні оператори <code>if</code> та лічильники. Спочатку складіть план розв'язання, а вже потім пишіть код.</div>
+ <details>
+  <summary><b>Показати один із можливих варіантів розв'язку</b></summary>
+<pre><code>temps = [12, 15, 18, 14, 20, 22, 16]
+
+total = 0
+highest = temps[0]
+lowest = temps[0]
+
+above = 0
+below = 0
+equal = 0
+
+for t in temps:
+    total += t
+
+    if t &gt; highest:
+        highest = t
+
+    if t &lt; lowest:
+        lowest = t
+
+    if t &gt; 15:
+        above += 1
+    elif t &lt; 15:
+        below += 1
+    else:
+        equal += 1
+
+print("Середня температура:", total / len(temps))
+print("Максимум:", highest)
+print("Мінімум:", lowest)
+print("Вище 15:", above)
+print("Нижче 15:", below)
+print("Рівно 15:", equal)</code></pre>
+ </details>
+</section>
+
+<section id="quiz">
+ <h2>9. Перевір себе</h2>
+ <p>Оберіть одну правильну відповідь у кожному запитанні та натисніть кнопку перевірки.</p>
+ <div class="quiz-q" data-answer="b">
+  <b>1. Що означає декомпозиція?</b>
+  <label><input type="radio" name="q1" value="a"> Видалення непотрібних даних</label>
+  <label><input type="radio" name="q1" value="b"> Поділ складної задачі на простіші підзадачі</label>
+  <label><input type="radio" name="q1" value="c"> Запис готового коду</label>
+  <div class="feedback"></div>
+ </div>
+ <div class="quiz-q" data-answer="c">
+  <b>2. На якому етапі визначають, що прізвища учнів не потрібні для обчислень?</b>
+  <label><input type="radio" name="q2" value="a"> Пошук закономірностей</label>
+  <label><input type="radio" name="q2" value="b"> Декомпозиція</label>
+  <label><input type="radio" name="q2" value="c"> Абстрагування</label>
+  <div class="feedback"></div>
+ </div>
+ <div class="quiz-q" data-answer="a">
+  <b>3. Яка конструкція Python підходить для послідовного опрацювання всіх оцінок зі списку?</b>
+  <label><input type="radio" name="q3" value="a"> <code>for</code></label>
+  <label><input type="radio" name="q3" value="b"> <code>print</code></label>
+  <label><input type="radio" name="q3" value="c"> <code>break</code></label>
+  <div class="feedback"></div>
+ </div>
+ <div class="quiz-q" data-answer="b">
+  <b>4. Для чого використовують лічильник <code>high</code>?</b>
+  <label><input type="radio" name="q4" value="a"> Для збереження найбільшої оцінки</label>
+  <label><input type="radio" name="q4" value="b"> Для підрахунку оцінок від 10 до 12</label>
+  <label><input type="radio" name="q4" value="c"> Для обчислення середнього бала</label>
+  <div class="feedback"></div>
+ </div>
+ <p id="quiz-result" aria-live="polite">Оберіть відповіді на всі запитання, а потім надішліть результат учителю.</p>
+ <form id="resultForm" action="https://formspree.io/f/mwllgbna" method="POST" onsubmit="return prepareSubmission()">
+  <h3>Надіслати результат учителю</h3>
+  <p>Після перевірки відповідей можна надіслати результат. Вкажіть своє ім’я, щоб учитель міг вас ідентифікувати.</p>
+  <label for="studentName">Ім’я та прізвище</label>
+  <input id="studentName" name="Ім’я та прізвище" type="text" required maxlength="100" placeholder="Введіть ім’я" style="width:min(100%,360px);padding:10px;border:1px solid #bac6d8;border-radius:8px;font:inherit">
+  <input type="hidden" name="Результат тесту" id="formScore">
+  <input type="hidden" name="Відповіді" id="formAnswers">
+  <input type="hidden" name="_subject" value="Результат тесту: Обчислювальне мислення">
+  <p><button id="sendResult" type="submit">Надіслати результат</button></p>
+  <p class="lead" id="sendHint">Перед надсиланням переконайтеся, що відповіли на всі запитання.</p>
+ </form>
+</section>
+
+<section>
+ <h2>10. Підсумок уроку</h2>
+ <p>Щоб розв'язати задачу за допомогою комп'ютера, потрібно пройти послідовні етапи:</p>
+ <div class="steps">
+  <div class="step"><b>1. Декомпозиція</b>Розділити задачу на підзадачі.</div>
+  <div class="step"><b>2. Закономірності</b>Знайти повторювані дії та зв'язки.</div>
+  <div class="step"><b>3. Абстрагування</b>Виділити важливі дані.</div>
+  <div class="step"><b>4. Алгоритм</b>Визначити точну послідовність кроків.</div>
+  <div class="step"><b>5. Програмування</b>Реалізувати алгоритм мовою Python.</div>
+  <div class="step"><b>6. Перевірка</b>Переконатися, що результат правильний.</div>
+ </div>
+ <div class="callout teal"><b>Запам'ятайте:</b> спочатку думаємо й аналізуємо — потім алгоритмізуємо — і лише після цього програмуємо.</div>
+</section>
+</main>
+<footer>Навчальний HTML-урок · Інформатика · 10 клас</footer>
+<script>
+function prepareSubmission(){
+ const questions=[...document.querySelectorAll('.quiz-q')];
+ let score=0, answered=0;
+ const answerSummary=questions.map((q,i)=>{
+  const selected=q.querySelector('input:checked');
+  const feedback=q.querySelector('.feedback');
+  if(!selected){
+   feedback.textContent='Будь ласка, оберіть відповідь.';
+   feedback.style.color='#a85b08';
+   return `${i+1}: без відповіді`;
+  }
+  answered++;
+  const correct=selected.value===q.dataset.answer;
+  if(correct) score++;
+  feedback.textContent=correct?'Правильно!':'Неправильно.';
+  feedback.style.color=correct?'#087f78':'#b42318';
+  return `${i+1}: ${selected.value} (${correct?'правильно':'неправильно'})`;
+ });
+ if(answered!==questions.length){
+  document.getElementById('quiz-result').textContent='Дайте відповіді на всі запитання перед надсиланням.';
+  document.getElementById('sendHint').textContent='Не всі запитання мають відповідь. Перевірте позначені пункти.';
+  return false;
+ }
+ document.getElementById('quiz-result').textContent=`Ваш результат: ${score} із ${questions.length}.`;
+ document.getElementById('formScore').value=`${score} із ${questions.length}`;
+ document.getElementById('formAnswers').value=answerSummary.join('; ');
+ document.getElementById('sendHint').textContent='Результат підготовлено до надсилання.';
+ return true;
+}
+</script>
+
+<script>
+// Це лише перешкода звичайному копіюванню, а не повний захист вмісту.
+document.addEventListener('contextmenu', function(event){
+ event.preventDefault();
+});
+document.addEventListener('selectstart', function(event){
+ if(!event.target.closest('input, textarea, select')) event.preventDefault();
+});
+document.addEventListener('copy', function(event){
+ if(!event.target.closest('input, textarea, select')) event.preventDefault();
+});
+document.addEventListener('cut', function(event){
+ if(!event.target.closest('input, textarea, select')) event.preventDefault();
+});
+document.addEventListener('keydown', function(event){
+ const key=event.key.toLowerCase();
+ if((event.ctrlKey || event.metaKey) && ['c','x','u','s','p'].includes(key)){
+  event.preventDefault();
+ }
+});
+</script>
+
+</body>
+</html>
